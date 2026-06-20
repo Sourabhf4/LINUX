@@ -763,11 +763,11 @@ useradd [options] username
 ### Practical:
 1. Add a new user:
    ```bash
-   sudo useradd -m -s /bin/bash john
+   sudo useradd -m -s /bin/bash sourabh
    ```
 2. Verify the user:
    ```bash
-   id john
+   id sourabh
    ```
 
 ## Setting User Passwords
@@ -776,7 +776,7 @@ Set or change a user password using the `passwd` command.
 ### Practical:
 1. Set a password for a user:
    ```bash
-   sudo passwd john
+   sudo passwd sourabh
    ```
 2. Test login with the new credentials.
 
@@ -795,11 +795,11 @@ Groups simplify permission management by categorizing users.
    ```
 2. Add a user to the group:
    ```bash
-   sudo usermod -aG developers john
+   sudo usermod -aG developers sourabh
    ```
 3. Verify group membership:
    ```bash
-   groups john
+   groups sourabh
    ```
 
 ## Removing Users
@@ -808,11 +808,11 @@ Delete a user account using the `userdel` command.
 ### Practical:
 1. Remove a user:
    ```bash
-   sudo userdel john
+   sudo userdel sourabh
    ```
 2. Remove a user and their home directory:
    ```bash
-   sudo userdel -r john
+   sudo userdel -r sourabh
    ```
 
 ## Introduction to Affected Files
