@@ -841,7 +841,7 @@ Each user has a dedicated home directory for personal files, typically located i
    ```
 2. Access another user’s home directory (as root):
    ```bash
-   sudo ls /home/john
+   sudo ls /home/sourabh
    ```
 
 
@@ -854,7 +854,7 @@ The `su` command switches to another user account.
 ### Practical:
 1. Switch to another user:
    ```bash
-   su john
+   su sourabh
    ```
 2. Return to the previous user:
    ```bash
