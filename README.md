@@ -874,3 +874,209 @@ The `sudo` command allows running commands as another user, typically root.
 Understanding and managing users and permissions is critical for Linux system administration. By practicing these concepts, you can effectively control access and maintain system security.
 
 ---
+# Managing Users and Permissions in Linux
+
+## Day 10: Managing Users and Permissions in Linux
+
+In this lesson, we'll dive deep into user and group management in Linux, including practical applications, commands, and configuration file details.
+
+---
+
+## Importance of Password Security
+Passwords are the first line of defense for user accounts. Weak passwords can lead to unauthorized access and compromise system security. Ensure users set complex passwords and follow password policies.
+
+### Key Practices:
+- Use at least 8 characters with a mix of upper/lower case letters, numbers, and special characters.
+- Periodically change passwords to ## Day 10: Managing Users and Permissions in Linux
+
+In this lesson, we'll dive deep into user and group management in Linux, including practical applications, commands, and configuration file details.
+
+---
+
+## Importance of Password Security
+Passwords are the first line of defense for user accounts. Weak passwords can lead to unauthorized access and compromise system security. Ensure users set complex passwords and follow password policies.
+
+### Key Practices:
+- Use at least 8 characters with a mix of upper/lower case letters, numbers, and special characters.
+- Periodically change passwominimize exposure risk.
+- Avoid sharing passwords.
+
+---
+
+## Using `passwd` Command
+The `passwd` command is used to change a user's password and manage password-related settings.
+
+### Syntax:
+```bash
+passwd [OPTIONS] [USER]
+```
+
+### Examples:
+- Change the current user’s password:
+  ```bash
+  passwd
+  ```
+- Change another user's password (requires root privileges):
+  ```bash
+  passwd username
+  ```
+- Lock a user's account:
+  ```bash
+  passwd -l username
+  ```
+- Unlock a user's account:
+  ```bash
+  passwd -u username
+  ```
+- Expire a user's password to force a reset on the next login:
+  ```bash
+  passwd -e username
+  ```
+
+---
+
+---
+
+## Account Locking and Expiration
+Locking accounts can prevent unauthorized logins, while expiration ensures unused accounts are deactivated.
+
+### Lock Account:
+```bash
+passwd -l username
+```
+
+
+### Check Account Details:
+```bash
+chage -l username
+```
+
+---
+
+## Understanding `/etc/shadow` Fields
+The `/etc/shadow` file stores encrypted passwords and account metadata.
+
+### Fields:
+```plaintext
+username:password:last_change:min_days:max_days:warn:inactive:expire
+```
+- **username**: User login name.
+- **password**: Encrypted password (or `!` for locked accounts).
+- **last_change**: Days since epoch when password last changed.
+- **min_days**: Minimum days before a password change is allowed.
+- **max_days**: Maximum days before a password must be changed.
+- **warn**: Days before expiry to warn the user.
+- **inactive**: Days after password expiry before account lock.
+- **expire**: Absolute account expiry date.
+
+
+---
+
+## Introduction to Linux Groups
+Groups allow multiple users to share permissions and access to resources.
+
+### Types of Groups:
+1. **Primary Group**: Associated with the user by default (specified during user creation).
+2. **Secondary Group**: Additional groups a user is part of.
+
+---
+
+## Fields of `/etc/group` and `/etc/gshadow`
+
+### `/etc/group`:
+Contains group information.
+```plaintext
+group_name:x:GID:members
+```
+- **group_name**: Name of the group.
+- **x**: Placeholder for password (if any).
+- **GID**: Group ID.
+- **members**: Comma-separated list of group members.
+
+### `/etc/gshadow`:
+Contains secure group passwords and metadata.
+```plaintext
+group_name:password:admin_users:members
+```
+- **password**: Encrypted group password (rarely used).
+- **admin_users**: Users allowed to administer the group.
+- **members**: Regular group members.
+
+---
+
+## Managing Groups
+
+### Creating Groups:
+```bash
+groupadd group_name
+```
+
+### Deleting Groups:
+```bash
+groupdel group_name
+```
+
+### Modifying Groups:
+- Change group name:
+  ```bash
+  groupmod -n new_name old_name
+  ```
+- Change GID:
+  ```bash
+  groupmod -g new_gid group_name
+  ```
+
+---
+
+## Managing Group Memberships
+
+### Add a User to a Group:
+```bash
+usermod -aG group_name username
+```
+
+### Remove a User from a Group:
+Edit `/etc/group` manually or use `gpasswd`:
+```bash
+gpasswd -d username group_name
+```
+
+### View Group Memberships:
+```bash
+groups username
+```
+
+---
+
+## Viewing and Editing Group Information
+
+### List All Groups:
+```bash
+cat /etc/group
+```
+
+---
+
+## Practical Examples
+
+### Scenario 1: Create a New Team
+1. Create a group:
+   ```bash
+   groupadd dev_team
+   ```
+2. Add users to the group:
+   ```bash
+   usermod -aG dev_team alice
+   usermod -aG dev_team bob
+   ```
+3. Verify membership:
+   ```bash
+   groups alice
+   ```
+
+
+---
+
+By following these practices and using the mentioned commands, you can effectively manage users, passwords, and groups in Linux.
+----
+
