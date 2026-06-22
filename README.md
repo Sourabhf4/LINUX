@@ -1078,5 +1078,5 @@ cat /etc/group
 ---
 
 By following these practices and using the mentioned commands, you can effectively manage users, passwords, and groups in Linux.
-----
+-------------------------------------------------------
 
