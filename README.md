@@ -1216,5 +1216,377 @@ System-defined file types are pre-configured by Linux to manage system functiona
 ---
 
 Feel free to experiment with these commands to better understand Linux permissions and file types.
+-------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+# Day 12: Managing Users and Permissions in Linux
+
+## **Link Count Basics**
+### Overview
+In Linux, the "link count" refers to the number of references (links) to a particular inode. An inode is a data structure that stores metadata about a file or directory.
+
+### Key Points
+1. **Files and Hard Links**: Each file starts with a link count of 1, representing its own name as a reference to its inode.
+2. **Directories**: Directories typically have a link count greater than 2 due to `.` (current directory), `..` (parent directory), and subdirectory entries.
+
+### Practical Example
+```bash
+# Check the link count of files and directories
+ls -l
+```
+Output:
+```
+drwxr-xr-x  2 user group 4096 Dec 18 10:00 example-dir
+-rw-r--r--  1 user group   45 Dec 18 10:00 example-file
+```
+In the example:
+- The directory `example-dir` has a link count of `2`.
+- The file `example-file` has a link count of `1`.
+
+## **Link Count for Directories**
+1. **Base Count**: A directory always starts with at least two links: `.` (itself) and `..` (parent).
+2. **Subdirectories**: Each subdirectory increases the parent directory’s link count by 1.
+
+### Example
+```bash
+mkdir dir1
+mkdir dir1/subdir1
+ls -ld dir1
+```
+Output:
+```
+drwxr-xr-x  3 user group 4096 Dec 18 10:00 dir1
+```
+Explanation: `dir1` has three links—`.` (itself), `..` (parent), and `subdir1`.
+
+## **Link Count for Files**
+1. **Hard Links**: Creating additional names for the same file increases the link count.
+
+### Example
+```bash
+ln file1 file2
+ls -l
+```
+Output:
+```
+-rw-r--r--  2 user group 4096 Dec 18 10:00 file1
+-rw-r--r--  2 user group 4096 Dec 18 10:00 file2
+```
+Explanation: Both `file1` and `file2` reference the same inode, increasing the link count to 2.
+
+## **Comparing Hard and Soft Links**
+### Hard Links
+- Point to the same inode.
+- Cannot span across different file systems.
+- Cannot link to directories.
+
+### Soft Links (Symbolic Links)
+- Act as a pointer to the original file.
+- Can span across file systems.
+- Can link to directories.
+
+### Practical Example
+```bash
+# Hard Link
+ln original hardlink
+ls -li
+
+# Soft Link
+ln -s original softlink
+ls -li
+```
+
+## **Importance of sudo for Privilege Escalation**
+### What is sudo?
+- `sudo` allows a permitted user to execute commands as another user, typically root.
+- It provides limited and controlled privilege escalation.
+
+### Why Use sudo?
+1. Prevent accidental system damage by restricting root access.
+2. Provides an audit trail of user activities.
+3. Offers flexibility for assigning specific command permissions.
+
+### Example
+```bash
+# Running a privileged command
+sudo apt update
+```
+
+## **Difference Between Regular User Commands and sudo Commands**
+- Regular commands operate within the user's permission scope.
+- `sudo` commands run with elevated privileges, allowing access to restricted operations.
+
+### Example
+```bash
+# Regular user command
+ls /root
+
+# sudo command
+sudo ls /root
+```
+Output:
+```
+Permission denied
+# With sudo
+<content of /root directory>
+```
+
+
+### Example
+```bash
+# Add user to sudo group
+sudo usermod -aG sudo username
+```
+
+
+---
+
+# Day 14: Automation and Data Handling in Linux
+
+## Overview of Archiving
+Archiving is the process of combining multiple files and directories into a single file. This is especially useful for backups, data transfer, and organization.
+
+### Common Use Cases:
+1. **Backups:** Safeguard data by creating archives that can be stored securely.
+2. **Data Transfer:** Simplify sharing by bundling multiple files into a single archive.
+3. **Organization:** Group related files for better management.
+
+## Creating and Extracting Archives with `tar`
+
+### **Creating an Archive:**
+```bash
+# Syntax:
+tar -cvf archive_name.tar file1 file2 directory/
+
+# Example:
+tar -cvf project_backup.tar project_folder/
+```
+- **Options:**
+  - `-c`: Create an archive.
+  - `-v`: Verbose output (show progress).
+  - `-f`: Specify the file name.
+
+### **Extracting an Archive:**
+```bash
+# Syntax:
+tar -xvf archive_name.tar
+
+# Example:
+tar -xvf project_backup.tar
+```
+- **Options:**
+  - `-x`: Extract an archive.
+
+### **Managing Archive Contents:**
+- **View Contents of an Archive:**
+```bash
+tar -tvf archive_name.tar
+```
+
+## Introduction to Compression
+Compression reduces file sizes by encoding data efficiently. It helps save storage and speeds up data transfer.
+
+### **Common Compression Formats:**
+- **gzip:** Good compression and widely supported.
+- **bzip2:** Better compression than gzip but slower.
+- **xz:** Best compression but slowest.
+
+### **Using gzip and gunzip:**
+- **Compress a File:**
+```bash
+gzip file_name
+```
+- **Decompress a File:**
+```bash
+gunzip file_name.gz
+```
+
+### **Using bzip2 and bunzip2:**
+- **Compress a File:**
+```bash
+bzip2 file_name
+```
+- **Decompress a File:**
+```bash
+bunzip2 file_name.bz2
+```
+
+### **Using xz and unxz:**
+- **Compress a File:**
+```bash
+xz file_name
+```
+- **Decompress a File:**
+```bash
+unxz file_name.xz
+```
+
+## Combining Archiving and Compression
+
+### **Create a Compressed tar Archive:**
+- Using gzip:
+```bash
+tar -czvf archive_name.tar.gz file1 file2 directory/
+```
+- Using bzip2:
+```bash
+tar -cjvf archive_name.tar.bz2 file1 file2 directory/
+```
+- Using xz:
+```bash
+tar -cJvf archive_name.tar.xz file1 file2 directory/
+```
+
+### **Extract a Compressed tar Archive:**
+- Using gzip:
+```bash
+tar -xzvf archive_name.tar.gz
+```
+- Using bzip2:
+```bash
+tar -xjvf archive_name.tar.bz2
+```
+- Using xz:
+```bash
+tar -xJvf archive_name.tar.xz
+```
+
+## Practical Examples
+### **Compressing Files:**
+```bash
+# Compress using gzip:
+tar -czvf documents.tar.gz Documents/
+
+# Compress using bzip2:
+tar -cjvf logs.tar.bz2 Logs/
+
+# Compress using xz:
+tar -cJvf archive.tar.xz Folder/
+```
+
+### **Decompressing Files:**
+```bash
+# Decompress using gzip:
+tar -xzvf documents.tar.gz
+
+# Decompress using bzip2:
+tar -xjvf logs.tar.bz2
+
+# Decompress using xz:
+tar -xJvf archive.tar.xz
+```
+
+## Introduction to CronTab
+CronTab allows scheduling of recurring tasks such as backups, system updates, and cleanup scripts.
+
+### **Understanding the CronTab Syntax:**
+CronTab entries have five fields:
+```
+* * * * * command_to_execute
+- - - - -
+| | | | |
+| | | | +----- Day of the week (0 - 7) (Sunday = 0 or 7)
+| | | +------- Month (1 - 12)
+| | +--------- Day of the month (1 - 31)
+| +----------- Hour (0 - 23)
++------------- Minute (0 - 59)
+```
+
+### **Creating and Managing Cron Jobs:**
+- **View Existing Cron Jobs:**
+```bash
+crontab -l
+```
+- **Edit Cron Jobs:**
+```bash
+crontab -e
+```
+- **Delete All Cron Jobs:**
+```bash
+crontab -r
+```
+
+### **Practical Examples:**
+1. **Automate Backups Every Day at Midnight:**
+```bash
+0 0 * * * tar -czvf /backup/home_$(date +\%F).tar.gz /home/user/
+```
+2. **Clean Temporary Files Every Week:**
+```bash
+0 0 * * 0 rm -rf /tmp/*
+```
+3. **Run a System Update Every Month:**
+```bash
+0 2 1 * * apt-get update && apt-get upgrade -y
+```
+---
+
+## 5. **Create a File Every Minute**
+
+This cron job creates a new file every minute with a unique timestamp in the name. The file is saved under `/home/student/`.
+
+### Cron Job:
+
+```bash
+* * * * * /bin/touch /home/student/minute_file_$(date +\%Y\%m\%d_\%H\%M\%S).txt
+```
+
+### Explanation:
+- `* * * * *`: Runs the task **every minute**.
+- `/bin/touch`: Command to create an empty file.
+- `/home/student/minute_file_$(date +\%Y\%m\%d_\%H\%M\%S).txt`: 
+  - Creates a file with a unique name using the date and time format.
+  - `$(date +\%Y\%m\%d_\%H\%M\%S)` generates a timestamp like `20231221_153001`.
+
+---
+
+## Additional Notes:
+
+- **Checking Cron Jobs**: You can check your existing cron jobs with:
+
+    ```bash
+    crontab -l
+    ```
+
+- **Editing Cron Jobs**: You can edit your cron jobs using:
+
+    ```bash
+    crontab -e
+    ```
+
+    ```
+
+- **Cron Service**: Ensure the cron service is running:
+
+    ```bash
+    sudo systemctl status cron
+    ```
+
+    If not running, you can start it using:
+
+    ```bash
+    sudo systemctl start cron
+    ```
+
+---
+
+### Conclusion:
+
+With the above cron jobs, you can automate various tasks like file creation, directory creation, and file deletion at specific times. This is a great way to make your Linux system more efficient by automating repetitive tasks!
+
+---
+
+**Happy Scheduling with Cron!**
+
+
+
+
+
+---
+
+
+This guide provides comprehensive knowledge of archiving, compression, and automation using CronTab in Linux. Practice these tasks regularly to build expertise.
+
+---
 
 -
