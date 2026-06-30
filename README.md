@@ -2010,3 +2010,180 @@ Google's server receives the request and sends back the webpage.
 - **DNS** translates domain names into IP addresses.
 - Together, these components make communication over the Internet possible.
 
+- # 🌐 LAN, MAN, and WAN
+
+These are different types of computer networks based on the **geographical area they cover**.
+
+| Network | Full Form | Coverage Area | Example |
+|---------|-----------|---------------|---------|
+| **LAN** | Local Area Network | Small area | Home, Office, School |
+| **MAN** | Metropolitan Area Network | City | Connecting multiple offices across a city |
+| **WAN** | Wide Area Network | Country or Worldwide | Internet |
+
+---
+
+# 1. LAN (Local Area Network)
+
+A **LAN (Local Area Network)** connects computers and devices within a **small geographical area**, such as a home, office, school, or building.
+
+## Characteristics
+
+- Small coverage area
+- High speed (100 Mbps, 1 Gbps, 10 Gbps)
+- Low cost
+- Usually owned and managed by a single organization
+
+## Example
+
+```text
+           Office LAN
+
+      PC1 -------- Switch -------- PC2
+                     |
+                  Printer
+                     |
+                File Server
+```
+
+### Explanation
+
+In an office:
+
+- All computers are connected to a **Switch**.
+- They can share:
+  - Files
+  - Printers
+  - Internet connection
+
+## Real-Life Examples
+
+- 🏠 Home Wi-Fi
+- 🏫 College computer lab
+- 🏢 Company office network
+
+---
+
+# 2. MAN (Metropolitan Area Network)
+
+A **MAN (Metropolitan Area Network)** connects multiple **LANs** within a **city or metropolitan area**.
+
+## Characteristics
+
+- Covers an entire city or large campus
+- Faster than WAN
+- Usually managed by telecom providers or large organizations
+
+## Example
+
+```text
+        Office A (LAN)
+              |
+              |
+      High-Speed Fiber
+              |
+              |
+        Office B (LAN)
+              |
+              |
+        Office C (LAN)
+```
+
+### Explanation
+
+A company has three offices in the same city:
+
+- Office A
+- Office B
+- Office C
+
+These offices are connected through a **MAN**, allowing employees to communicate and share resources.
+
+---
+
+# 3. WAN (Wide Area Network)
+
+A **WAN (Wide Area Network)** connects **LANs** and **MANs** across **large geographical areas**, such as countries or continents.
+
+## Characteristics
+
+- Covers very large distances
+- Connects cities, states, and countries
+- Usually slower than LAN because of longer distances
+- Uses public networks or leased lines
+
+## Example
+
+```text
+      India Office (LAN)
+               |
+               |
+           Internet
+               |
+               |
+       USA Office (LAN)
+               |
+               |
+        UK Office (LAN)
+```
+
+### Explanation
+
+A company has offices in:
+
+- 🇮🇳 India
+- 🇺🇸 USA
+- 🇬🇧 UK
+
+Employees communicate over a **WAN**.
+
+> **The Internet is the world's largest WAN.**
+
+---
+
+# 📊 Comparison
+
+| Feature | LAN | MAN | WAN |
+|----------|-----|-----|-----|
+| **Full Form** | Local Area Network | Metropolitan Area Network | Wide Area Network |
+| **Coverage** | Building, Home, Office | City | Country, Worldwide |
+| **Speed** | High | Medium to High | Lower than LAN |
+| **Cost** | Low | Medium | High |
+| **Ownership** | Single Organization | Organization / ISP | ISPs / Telecom Providers |
+| **Example** | Office Network | City-wide Office Network | Internet |
+
+---
+
+# 💡 Easy Way to Remember
+
+- 🏠 **LAN** → One building or office
+- 🏙️ **MAN** → One city
+- 🌍 **WAN** → Multiple cities, countries, or the entire world
+
+```text
+        Room / Office
+              │
+              ▼
+             LAN
+              │
+              ▼
+             City
+              │
+              ▼
+             MAN
+              │
+              ▼
+       Country / World
+              │
+              ▼
+             WAN
+```
+
+---
+
+# 📌 Summary
+
+- **LAN** is used for communication within a small area like a home, office, or school.
+- **MAN** connects multiple LANs across a city.
+- **WAN** connects LANs and MANs over large geographical areas such as countries or continents.
+- The **Internet** is the best example of a **WAN**.
+
